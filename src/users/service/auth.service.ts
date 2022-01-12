@@ -6,12 +6,16 @@ import {
 import { UserService } from './user.service';
 import { scrypt as _scrypt, randomBytes } from 'crypto';
 import { promisify } from 'util';
+import { AccountsService } from 'src/accounts/service/accounts.service';
 
 const scrypt = promisify(_scrypt);
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private accountService: AccountsService,
+  ) {}
 
   async signup(
     email: string,
@@ -35,6 +39,13 @@ export class AuthService {
       address,
       phoneNumber,
       hashedPassword,
+    );
+    await this.accountService.createAccount(
+      {
+        type: 'PERSONAL',
+        totalAmount: 0,
+      },
+      user,
     );
 
     return user;

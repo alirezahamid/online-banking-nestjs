@@ -8,6 +8,9 @@ export class UserDto {
   email: string;
 
   @Expose()
+  accountNumber: number;
+
+  @Expose()
   createdDate: Date;
 
   @Expose()

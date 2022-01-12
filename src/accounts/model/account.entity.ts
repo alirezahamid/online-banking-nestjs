@@ -1,35 +1,33 @@
-import { Account } from 'src/accounts/model/account.entity';
+import { User } from 'src/users/model/user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  OneToOne,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Account {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  email: string;
+  accountNumber: number;
 
   @Column()
-  fullName: string;
+  sortCode: number;
 
   @Column()
-  address: string;
+  type: string;
 
   @Column()
-  phoneNumber: string;
+  totalAmount: number;
 
-  @Column()
-  password: string;
-
-  @OneToMany(() => Account, (account) => account.user)
-  accounts: Account;
+  @ManyToOne(() => User, (user) => user.accounts)
+  user: User;
 
   @CreateDateColumn()
   createdDate: Date;
