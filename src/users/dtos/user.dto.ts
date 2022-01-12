@@ -6,4 +6,10 @@ export class UserDto {
 
   @Expose()
   email: string;
+
+  @Expose()
+  createdDate: Date;
+
+  @Expose()
+  updatedDate: Date;
 }
