@@ -20,4 +20,33 @@ export class AccountsService {
     account.user = user;
     return this.repo.save(account);
   }
+
+  findAccByUserId(id) {
+    const result = this.repo.findOne({ user: id });
+    return result;
+  }
+  findAccByAccNum(accNum, sortCode) {
+    const result = this.repo.findOne({
+      accountNumber: accNum,
+      sortCode: sortCode,
+    });
+    return result;
+  }
+  async updateTotalAmount(accountId, type, attr) {
+    const account = await this.repo.findOne(accountId);
+
+    if (type === 'ADD') {
+      const updatedAmount = {
+        totalAmount: attr + account.totalAmount,
+      };
+      Object.assign(account, updatedAmount);
+    } else if (type === 'REDUCE') {
+      const updatedAmount = {
+        totalAmount: account.totalAmount - attr,
+      };
+      Object.assign(account, updatedAmount);
+    }
+    // console.log(account, amount);
+    return this.repo.save(account);
+  }
 }

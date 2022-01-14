@@ -28,8 +28,8 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Account, (account) => account.user)
-  accounts: Account;
+  @OneToMany(() => Account, (account) => account.user, { eager: true })
+  accounts: Account[];
 
   @CreateDateColumn()
   createdDate: Date;

@@ -1,3 +1,4 @@
+import { Transaction } from 'src/transaction/model/transaction.entity';
 import { User } from 'src/users/model/user.entity';
 import {
   Entity,
@@ -5,8 +6,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
   ManyToOne,
+  JoinTable,
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -27,6 +30,7 @@ export class Account {
   totalAmount: number;
 
   @ManyToOne(() => User, (user) => user.accounts)
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @CreateDateColumn()

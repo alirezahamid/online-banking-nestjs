@@ -11,7 +11,7 @@ import { AccountsModule } from 'src/accounts/accounts.module';
 import { Account } from 'src/accounts/model/account.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Account]), AccountsModule],
+  imports: [TypeOrmModule.forFeature([User, Account])],
   providers: [
     UserService,
     AuthService,
