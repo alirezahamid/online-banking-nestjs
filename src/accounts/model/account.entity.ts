@@ -1,4 +1,3 @@
-import { Transaction } from 'src/transaction/model/transaction.entity';
 import { User } from 'src/users/model/user.entity';
 import {
   Entity,
@@ -7,9 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinTable,
   JoinColumn,
-  OneToMany,
 } from 'typeorm';
 
 @Entity()

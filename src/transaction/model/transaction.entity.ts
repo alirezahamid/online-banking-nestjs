@@ -1,11 +1,8 @@
-import { Account } from 'src/accounts/model/account.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  ManyToMany,
-  ManyToOne,
 } from 'typeorm';
 
 @Entity()
@@ -25,10 +22,6 @@ export class Transaction {
   fAccNum: number;
   @Column()
   fSortCode: number;
-  // @Column()
-  // fUserId: number;
-  // @Column()
-  // fAccHolder: string;
 
   @Column()
   tAccId: number;
@@ -36,10 +29,6 @@ export class Transaction {
   tAccNum: number;
   @Column()
   tSortCode: number;
-  // @Column()
-  // tUserId: number;
-  // @Column()
-  // tAccHolder: string;
 
   @CreateDateColumn()
   createdDate: Date;
