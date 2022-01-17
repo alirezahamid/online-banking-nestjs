@@ -11,6 +11,9 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+/* 
+  User model through SQL Database
+*/
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
