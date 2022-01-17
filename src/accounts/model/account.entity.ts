@@ -5,8 +5,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -27,6 +27,7 @@ export class Account {
   totalAmount: number;
 
   @ManyToOne(() => User, (user) => user.accounts)
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @CreateDateColumn()

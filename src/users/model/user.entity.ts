@@ -1,4 +1,5 @@
 import { Account } from 'src/accounts/model/account.entity';
+import { Transaction } from 'src/transaction/model/transaction.entity';
 import {
   Entity,
   Column,
@@ -6,8 +7,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
+/* 
+  User model through SQL Database
+*/
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -28,8 +34,11 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Account, (account) => account.user)
+  @OneToMany(() => Account, (account) => account.user, { eager: true })
   accounts: Account;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.issuer)
+  transactions: Transaction[];
 
   @CreateDateColumn()
   createdDate: Date;

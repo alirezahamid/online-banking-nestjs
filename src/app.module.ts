@@ -5,7 +5,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountsModule } from './accounts/accounts.module';
-
+import { TransactionModule } from './transaction/transaction.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -17,6 +17,7 @@ import { AccountsModule } from './accounts/accounts.module';
     }),
     UsersModule,
     AccountsModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
