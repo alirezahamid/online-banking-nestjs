@@ -46,7 +46,6 @@ export class AccountsService {
       };
       Object.assign(account, updatedAmount);
     }
-    // console.log(account, amount);
     return this.repo.save(account);
   }
 }

@@ -32,6 +32,8 @@ export class TransactionService {
     );
 
     const transaction = {
+      issuer: user,
+
       fAccId: sender.id,
       fAccNum: sender.accountNumber,
       fSortCode: sender.sortCode,
@@ -42,15 +44,10 @@ export class TransactionService {
 
       amount: payload.amount,
     };
-
-    const Sender = await this.repo.create({ ...transaction, type: 'SEND' });
-    const Receiver = await this.repo.create({
-      ...transaction,
-      type: 'RECEIVE',
-    });
+    const Sender = await this.repo.create(transaction);
 
     const resSender = await this.repo.save(Sender);
-    const resReceiver = await this.repo.save(Receiver);
+    // const resReceiver = await this.repo.save(Receiver);
 
     await this.accountService.updateTotalAmount(
       receiver.id,
@@ -65,7 +62,13 @@ export class TransactionService {
 
     return {
       resSender,
-      resReceiver,
+      // resReceiver,
     };
+  }
+
+  async findTransactions(currentUser) {
+    const accounts = currentUser.accounts[0];
+
+    return this.repo.find();
   }
 }
