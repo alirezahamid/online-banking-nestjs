@@ -37,7 +37,7 @@ export class User {
   @OneToMany(() => Account, (account) => account.user, { eager: true })
   accounts: Account;
 
-  @OneToOne(() => Transaction, (transaction) => transaction.issuer)
+  @OneToMany(() => Transaction, (transaction) => transaction.issuer)
   transactions: Transaction[];
 
   @CreateDateColumn()

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AccountsService } from 'src/accounts/service/accounts.service';
 import { Repository } from 'typeorm';
@@ -20,6 +20,10 @@ export class TransactionService {
     return result;
   }
   async createTransaction(payload, user) {
+    if (!user) {
+      throw new NotFoundException('User not found, Please Log In');
+    }
+
     const sender = await this.findSenderAcc(user);
 
     if (payload.amount > sender.totalAmount) {
@@ -44,10 +48,9 @@ export class TransactionService {
 
       amount: payload.amount,
     };
-    const Sender = await this.repo.create(transaction);
+    const transactionObj = await this.repo.create(transaction);
 
-    const resSender = await this.repo.save(Sender);
-    // const resReceiver = await this.repo.save(Receiver);
+    const transactionResult = await this.repo.save(transactionObj);
 
     await this.accountService.updateTotalAmount(
       receiver.id,
@@ -60,14 +63,14 @@ export class TransactionService {
       payload.amount,
     );
 
+    const { issuer, ...result } = transactionResult;
     return {
-      resSender,
-      // resReceiver,
+      result,
     };
   }
 
   async findTransactions(currentUser) {
-    const accounts = currentUser.accounts[0];
+    // const accounts = currentUser.accounts[0];
 
     return this.repo.find();
   }

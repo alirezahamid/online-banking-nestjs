@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   OneToOne,
   JoinColumn,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -19,8 +20,8 @@ export class Transaction {
   @Column()
   amount: number;
 
-  @OneToOne(() => User, (user) => user.transactions, { eager: true })
-  @JoinColumn({ name: 'issuer' })
+  @OneToOne(() => User, { eager: true })
+  @JoinTable()
   issuer: User;
 
   @Column()
