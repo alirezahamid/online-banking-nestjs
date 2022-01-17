@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
+import Crypto from 'crypto';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
